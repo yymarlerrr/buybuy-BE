@@ -5,7 +5,6 @@
 ## 專案架構
 
 ```bash
-.
 ├── src
 │   ├── main.ts
 │   ├── app.module.ts
