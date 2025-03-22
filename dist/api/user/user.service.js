@@ -6,22 +6,47 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderService = void 0;
+exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
-let OrderService = class OrderService {
-    SHEETDB_URL = 'https://sheetdb.io/api/v1/gyrq3n0lee40i';
-    async getOrderByUserId(id) {
+let UserService = class UserService {
+    SHEETDB_URL = 'https://sheetdb.io/api/v1/v405cupumvutv';
+    async createUser(body) {
         try {
-            const response = await fetch(`${this.SHEETDB_URL}/search?userId=${id}`, {
-                method: 'GET',
+            const response = await fetch(this.SHEETDB_URL, {
+                method: 'POST',
+                body: JSON.stringify({
+                    data: [body]
+                }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
+            const responseData = await response.json();
+            if (response.status !== 201) {
+                return {
+                    success: false,
+                    message: 'Failed to create user'
+                };
+            }
+            return {
+                success: true
+            };
+        }
+        catch (error) {
+            console.log(error);
+            return {
+                success: false,
+                message: 'Failed to create user'
+            };
+        }
+    }
+    async getUser(id) {
+        try {
+            const response = await fetch(`${this.SHEETDB_URL}/search?userId=${id}`);
             if (response.status !== 200) {
                 return {
                     success: false,
-                    message: 'Failed to get orders'
+                    message: 'Failed to get user'
                 };
             }
             return {
@@ -33,42 +58,13 @@ let OrderService = class OrderService {
             console.log(error);
             return {
                 success: false,
-                message: 'Failed to get orders'
-            };
-        }
-    }
-    async createOrder(body) {
-        try {
-            const response = await fetch(this.SHEETDB_URL, {
-                method: 'POST',
-                body: JSON.stringify({
-                    data: [body]
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (response.status !== 201) {
-                return {
-                    success: false,
-                    message: 'Failed to create order'
-                };
-            }
-            return {
-                success: true
-            };
-        }
-        catch (error) {
-            console.log(error);
-            return {
-                success: false,
-                message: 'Failed to create order'
+                message: 'Failed to get user'
             };
         }
     }
 };
-exports.OrderService = OrderService;
-exports.OrderService = OrderService = __decorate([
+exports.UserService = UserService;
+exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)()
-], OrderService);
-//# sourceMappingURL=order.service.js.map
+], UserService);
+//# sourceMappingURL=user.service.js.map

@@ -12,17 +12,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderController = void 0;
+exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
-const order_service_1 = require("./order.service");
-const create_order_dto_1 = require("./dto/create-order.dto");
-let OrderController = class OrderController {
-    orderService;
-    constructor(orderService) {
-        this.orderService = orderService;
+const user_service_1 = require("./user.service");
+const create_user_dto_1 = require("./dto/create-user.dto");
+let UserController = class UserController {
+    userService;
+    constructor(userService) {
+        this.userService = userService;
     }
-    async getOrdersByUserId(id) {
-        const result = (await this.orderService.getOrderByUserId(id));
+    async createUser(body) {
+        const result = (await this.userService.createUser(body));
         if (!result.success) {
             throw new common_1.HttpException({
                 status: common_1.HttpStatus.BAD_REQUEST,
@@ -31,8 +31,8 @@ let OrderController = class OrderController {
         }
         return result;
     }
-    async createOrder(body) {
-        const result = (await this.orderService.createOrder(body));
+    async getUser(id) {
+        const result = (await this.userService.getUser(id));
         if (!result.success) {
             throw new common_1.HttpException({
                 status: common_1.HttpStatus.BAD_REQUEST,
@@ -42,23 +42,23 @@ let OrderController = class OrderController {
         return result;
     }
 };
-exports.OrderController = OrderController;
-__decorate([
-    (0, common_1.Get)('/:id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], OrderController.prototype, "getOrdersByUserId", null);
+exports.UserController = UserController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_order_dto_1.CreateOrderDto]),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
-], OrderController.prototype, "createOrder", null);
-exports.OrderController = OrderController = __decorate([
-    (0, common_1.Controller)('orders'),
-    __metadata("design:paramtypes", [order_service_1.OrderService])
-], OrderController);
-//# sourceMappingURL=order.controller.js.map
+], UserController.prototype, "createUser", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getUser", null);
+exports.UserController = UserController = __decorate([
+    (0, common_1.Controller)('users'),
+    __metadata("design:paramtypes", [user_service_1.UserService])
+], UserController);
+//# sourceMappingURL=user.controller.js.map
